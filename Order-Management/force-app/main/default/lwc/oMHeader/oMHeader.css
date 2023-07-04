@@ -1,7 +1,8 @@
 .header-wrapper {
     display: flex;
     justify-content:space-between;
-    padding: 100px;
+    padding: 50px;
+    border: 1px solid black;
 }
 
 .header-leftSide {

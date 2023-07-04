@@ -1,0 +1,22 @@
+.wrapper{
+    padding: 10px;
+}
+
+.header{
+    margin-bottom: 30px;
+}
+
+.filteSearchListSection{
+    display: flex;
+    justify-content: space-between;
+
+    gap: 100px;
+}
+
+.filteSection{
+    width: 30%;
+}
+
+.searchListSection{
+    width: 70%; 
+}
