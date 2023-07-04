@@ -23,8 +23,6 @@ export default class OMList extends LightningElement {
         {
             "id": "1"
         },
-        {
-            "id": "1"
-        },
+
     ]
 }
