@@ -3,26 +3,28 @@ import { LightningElement } from 'lwc';
 export default class OMList extends LightningElement {
     products = [
         {
-            "id": "1"
+            "id": "1",
+            'productName': 'Car'
         },
         {
-            "id": "1"
+            "id": "2",
+            'productName': 'Dog'
         },
         {
-            "id": "1"
+            "id": "3",
+            'productName': 'Nikita'
         },
         {
-            "id": "1"
+            "id": "4",
+            'productName': 'TV'
         },
         {
-            "id": "1"
+            "id": "4",
+            'productName': 'Door'
         },
-        {
-            "id": "1"
-        },
-        {
-            "id": "1"
-        },
+    ];
 
-    ]
+    inputText;
+
+
 }

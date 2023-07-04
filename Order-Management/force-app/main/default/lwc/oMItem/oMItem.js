@@ -1,5 +1,5 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 export default class OMItem extends LightningElement {
-    product;
+    @api product;
 }

@@ -1,6 +1,7 @@
 <template>
     <div class="searchListWrapper">
-        <lightning-input class="searchInput" type="text" placeholder="Search"></lightning-input>
+        <lightning-input class="searchInput" type="text" placeholder="Search"
+            onchange={handleInputChange}></lightning-input>
 
         <c-o-M-List></c-o-M-List>
 
