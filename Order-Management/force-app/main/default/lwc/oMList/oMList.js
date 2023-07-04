@@ -1,6 +1,7 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 export default class OMList extends LightningElement {
+
     products = [
         {
             "id": "1",
@@ -24,7 +25,8 @@ export default class OMList extends LightningElement {
         },
     ];
 
-    inputText;
+    @api inputText = "START VOID TEXT";
+
 
 
 }
