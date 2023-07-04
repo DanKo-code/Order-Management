@@ -2,9 +2,9 @@ import { LightningElement, track } from 'lwc';
 
 export default class OMSearchList extends LightningElement {
 
-    inputText;
+    @track inputText = '';
 
     handleInputChange(event) {
-        this.inputText = event.target.value.toLowerCase();
+        this.inputText = event.target.value;
     }
 }

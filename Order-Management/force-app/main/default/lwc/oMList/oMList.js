@@ -1,4 +1,4 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 
 export default class OMList extends LightningElement {
 
@@ -25,8 +25,11 @@ export default class OMList extends LightningElement {
         },
     ];
 
-    @api inputText = "START VOID TEXT";
+    @api inputText = '';
 
+    get filteredItems() {
+        return this.products.filter(product => product.productName.includes(this.inputText));
+    }
 
 
 }
