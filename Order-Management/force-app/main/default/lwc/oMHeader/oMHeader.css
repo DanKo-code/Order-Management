@@ -1,0 +1,22 @@
+.header-wrapper {
+    display: flex;
+    justify-content:space-between;
+    padding: 100px;
+}
+
+.header-leftSide {
+    display: flex;
+    gap: 100px;
+}
+
+.header-rigtSide {
+    display: flex;
+    gap: 100px;
+}
+
+.header-rigtSide > div {
+    background-color: aqua;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
