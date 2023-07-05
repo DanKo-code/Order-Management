@@ -4,6 +4,7 @@ import FILTER_UPDATED_CHANNEL from '@salesforce/messageChannel/Filter_Update__c'
 
 export default class OMList extends LightningElement {
 
+    //TEMP DB
     products = [
         {
             "id": "1",
@@ -13,6 +14,7 @@ export default class OMList extends LightningElement {
             niolore et saepe, magnam perspiciatis ut incidunt est.`,
             Type: 'firstType',
             Family: 'firstFamily',
+            img: 'https://s3-us-west-1.amazonaws.com/sfdc-demo/ebikes/dynamox1.jpg',
         },
         {
             "id": "2",
@@ -52,6 +54,7 @@ export default class OMList extends LightningElement {
         }
     ];
 
+    //"REDUX"
     type = '';
     family = '';
     subscription = null;
@@ -86,4 +89,13 @@ export default class OMList extends LightningElement {
     }
 
 
+    // Modal hendler
+    handleDetailsClick(event) {
+        const modalDetails = this.template.querySelector('c-modal-details');
+        if (modalDetails) {
+            debugger
+            modalDetails.product = event.detail;
+            modalDetails.show();
+        }
+    }
 }
