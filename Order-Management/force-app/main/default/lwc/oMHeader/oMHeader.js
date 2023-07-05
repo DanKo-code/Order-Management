@@ -6,6 +6,7 @@ import USER_ID from '@salesforce/user/Id';
 
 import { publish, MessageContext } from 'lightning/messageService';
 import CURT_SHOW_CHANNEL from '@salesforce/messageChannel/Curt_Show__c';
+import CREATE_SHOW_CHANNEL from '@salesforce/messageChannel/Create_Show__c';
 
 const FIELDS = [ACCOUNT_NAME_FIELD, ACCOUNT_NUMBER_FIELD];
 
@@ -32,11 +33,23 @@ export default class OMHeader extends LightningElement {
     @wire(MessageContext)
     messageContext;
 
+    // @wire(MessageContext)
+    // messageContext2;
+
     handleCart() {
         const payload = {
             Type: 'show'
         }
 
         publish(this.messageContext, CURT_SHOW_CHANNEL, payload)
+    }
+
+    handleCreate() {
+        debugger
+        const payload = {
+            Type: 'show'
+        }
+
+        publish(this.messageContext, CREATE_SHOW_CHANNEL, payload)
     }
 }
