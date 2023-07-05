@@ -15,9 +15,8 @@
     gap: 100px;
 }
 
-.header-rigtSide > div {
-    background-color: aqua;
-    width: 100px;
+/* .header-rigtSide > lightning-button {
+    width: 200px;
     display: flex;
     justify-content: center;
-}
+} */

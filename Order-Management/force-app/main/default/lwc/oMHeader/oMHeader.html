@@ -5,8 +5,10 @@
                      <div>Account Number {accountNumber}</div>
               </div>
               <div class="header-rigtSide">
-                     <div>Create Product</div>
-                     <div>Cart</div>
+                     <lightning-button variant="brand" label="Create Product" title="Primary action"
+                            onclick={handleCartAdd} class="slds-m-left_x-small"></lightning-button>
+                     <lightning-button variant="brand" label="Cart" title="Primary action" onclick={handleCart}
+                            class="slds-m-left_x-small"></lightning-button>
               </div>
        </div>
 

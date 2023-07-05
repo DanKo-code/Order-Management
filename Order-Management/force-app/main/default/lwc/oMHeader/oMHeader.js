@@ -4,6 +4,9 @@ import ACCOUNT_NAME_FIELD from '@salesforce/schema/Account.Name';
 import ACCOUNT_NUMBER_FIELD from '@salesforce/schema/Account.AccountNumber';
 import USER_ID from '@salesforce/user/Id';
 
+import { publish, MessageContext } from 'lightning/messageService';
+import CURT_SHOW_CHANNEL from '@salesforce/messageChannel/Curt_Show__c';
+
 const FIELDS = [ACCOUNT_NAME_FIELD, ACCOUNT_NUMBER_FIELD];
 
 export default class OMHeader extends LightningElement {
@@ -24,5 +27,16 @@ export default class OMHeader extends LightningElement {
         }
     }
 
+    //redux
 
+    @wire(MessageContext)
+    messageContext;
+
+    handleCart() {
+        const payload = {
+            Type: 'show'
+        }
+
+        publish(this.messageContext, CURT_SHOW_CHANNEL, payload)
+    }
 }

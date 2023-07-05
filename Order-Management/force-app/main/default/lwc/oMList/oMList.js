@@ -15,6 +15,7 @@ export default class OMList extends LightningElement {
             Type: 'firstType',
             Family: 'firstFamily',
             img: 'https://s3-us-west-1.amazonaws.com/sfdc-demo/ebikes/dynamox1.jpg',
+            price: 100,
         },
         {
             "id": "2",
@@ -24,6 +25,7 @@ export default class OMList extends LightningElement {
             niolore et saepe, magnam perspiciatis ut incidunt est.`,
             Type: 'firstType',
             Family: 'firstFamily',
+            price: 100,
         },
         {
             "id": "3",
@@ -33,6 +35,7 @@ export default class OMList extends LightningElement {
             niolore et saepe, magnam perspiciatis ut incidunt est.`,
             Type: 'secondType',
             Family: 'secondFamily',
+            price: 100,
         },
         {
             "id": "4",
@@ -42,6 +45,7 @@ export default class OMList extends LightningElement {
             niolore et saepe, magnam perspiciatis ut incidunt est.`,
             Type: 'secondType',
             Family: 'secondFamily',
+            price: 100,
         },
         {
             "id": "4",
@@ -51,6 +55,7 @@ export default class OMList extends LightningElement {
             niolore et saepe, magnam perspiciatis ut incidunt est.`,
             Type: 'thirdType',
             Family: 'thirdFamily',
+            price: 100,
         }
     ];
 
@@ -93,7 +98,6 @@ export default class OMList extends LightningElement {
     handleDetailsClick(event) {
         const modalDetails = this.template.querySelector('c-modal-details');
         if (modalDetails) {
-            debugger
             modalDetails.product = event.detail;
             modalDetails.show();
         }
