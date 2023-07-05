@@ -16,15 +16,19 @@
                 <!-- Header End -->
 
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <template for:each={productKeysValues} for:item="productKeyValue">
-                        <slot key={productKeyValue.Key}>
-                            <h2><b>{productKeyValue.Key}:</b></h2>
-                            <div>{productKeyValue.Value}</div>
-                        </slot>
-                    </template>
+                    <img src={product.img} alt="img">
+
+                    <p><b>Type:</b></p>
+                    <p>{product.Type}</p>
+
+                    <p><b>Family:</b></p>
+                    <p>{product.Family}</p>
+
+                    <p><b>Description:</b></p>
+                    <p>{product.Description}</p>
                 </div>
             </div>
         </section>
-        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        <!-- <div class="slds-backdrop slds-backdrop_open" role="presentation"></div> -->
     </template>
 </template>
