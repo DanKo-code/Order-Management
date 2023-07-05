@@ -2,6 +2,7 @@ import { LightningElement, api, wire } from 'lwc';
 
 import { subscribe, publish, MessageContext } from 'lightning/messageService';
 import CREATE_SHOW_CHANNEL from '@salesforce/messageChannel/Create_Show__c';
+import SEND_PRODUCT_CHANNEL from '@salesforce/messageChannel/Send_Product__c';
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 
@@ -27,6 +28,8 @@ export default class ModalCreate extends LightningElement {
 
     @wire(MessageContext)
     messageContext;
+
+
 
     connectedCallback() {
         this.subscribeToMessageChannel();
@@ -87,13 +90,18 @@ export default class ModalCreate extends LightningElement {
         if (this.ProductName && this.Description && this.Type && this.Family && this.Price) {
             this.newProduct = {
                 "id": '100',
-                'productName': 'this.ProductName',
-                'Description': this.Description,
+                productName: this.ProductName,
+                Description: this.Description,
                 Type: this.Type,
                 Family: this.Family,
                 price: this.Price,
-                imh: this.Image
+                img: this.Image
             }
+
+            const payload = {
+                add: this.newProduct
+            }
+            publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
 
             this.handleDialogClose()
             this.showToastSuccess()

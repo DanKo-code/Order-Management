@@ -1,11 +1,13 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 import { subscribe, MessageContext } from 'lightning/messageService';
 import FILTER_UPDATED_CHANNEL from '@salesforce/messageChannel/Filter_Update__c';
+import SEND_PRODUCT_CHANNEL from '@salesforce/messageChannel/Send_Product__c';
+
 
 export default class OMList extends LightningElement {
 
     //TEMP DB
-    products = [
+    @track products = [
         {
             "id": "1",
             'productName': 'Car',
@@ -63,6 +65,7 @@ export default class OMList extends LightningElement {
     type = '';
     family = '';
     subscription = null;
+    subscription2 = null;
 
     @wire(MessageContext)
     messageContext;
@@ -77,6 +80,12 @@ export default class OMList extends LightningElement {
             FILTER_UPDATED_CHANNEL,
             (message) => this.handleMessage(message)
         );
+
+        this.subscription2 = subscribe(
+            this.messageContext,
+            SEND_PRODUCT_CHANNEL,
+            (message) => this.handleMessage2(message)
+        );
     }
 
     handleMessage(message) {
@@ -85,6 +94,11 @@ export default class OMList extends LightningElement {
             this.type = message.Type
         else if (message.Family != null)
             this.family = message.Family
+    }
+
+    handleMessage2(message) {
+
+        this.products.push(message.add)
     }
 
     @api inputText = '';
