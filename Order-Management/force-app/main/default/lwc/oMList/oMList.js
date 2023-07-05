@@ -1,34 +1,88 @@
-import { LightningElement, track, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
+import { subscribe, MessageContext } from 'lightning/messageService';
+import FILTER_UPDATED_CHANNEL from '@salesforce/messageChannel/Filter_Update__c';
 
 export default class OMList extends LightningElement {
 
     products = [
         {
             "id": "1",
-            'productName': 'Car'
+            'productName': 'Car',
+            'Description': `1 ipsum dolor sit amet consectetur adipisicing elit.Voluptatibus repudiandae, praesentium nostrum alias
+            dignissimos cum aliquid.Delectus molestiae adipisci aliquam, repellat voluptas nulla assumenda odio nobis
+            niolore et saepe, magnam perspiciatis ut incidunt est.`,
+            Type: 'firstType',
+            Family: 'firstFamily',
         },
         {
             "id": "2",
-            'productName': 'Dog'
+            'productName': 'Dog',
+            'Description': `Lorem ipsum dolor sit amet consectetur adipisicing elit.Voluptatibus repudiandae, praesentium nostrum alias
+            dignissimos cum aliquid.Delectus molestiae adipisci aliquam, repellat voluptas nulla assumenda odio nobis
+            niolore et saepe, magnam perspiciatis ut incidunt est.`,
+            Type: 'firstType',
+            Family: 'firstFamily',
         },
         {
             "id": "3",
-            'productName': 'Nikita'
+            'productName': 'Nikita',
+            'Description': `Lorem ipsum dolor sit amet consectetur adipisicing elit.Voluptatibus repudiandae, praesentium nostrum alias
+            dignissimos cum aliquid.Delectus molestiae adipisci aliquam, repellat voluptas nulla assumenda odio nobis
+            niolore et saepe, magnam perspiciatis ut incidunt est.`,
+            Type: 'secondType',
+            Family: 'secondFamily',
         },
         {
             "id": "4",
-            'productName': 'TV'
+            'productName': 'TV',
+            'Description': `Lorem ipsum dolor sit amet consectetur adipisicing elit.Voluptatibus repudiandae, praesentium nostrum alias
+            dignissimos cum aliquid.Delectus molestiae adipisci aliquam, repellat voluptas nulla assumenda odio nobis
+            niolore et saepe, magnam perspiciatis ut incidunt est.`,
+            Type: 'secondType',
+            Family: 'secondFamily',
         },
         {
             "id": "4",
-            'productName': 'Door'
-        },
+            'productName': 'Door',
+            'Description': `Lorem ipsum dolor sit amet consectetur adipisicing elit.Voluptatibus repudiandae, praesentium nostrum alias
+            dignissimos cum aliquid.Delectus molestiae adipisci aliquam, repellat voluptas nulla assumenda odio nobis
+            niolore et saepe, magnam perspiciatis ut incidunt est.`,
+            Type: 'thirdType',
+            Family: 'thirdFamily',
+        }
     ];
 
-    @api inputText = '';
+    type = '';
+    family = '';
+    subscription = null;
 
+    @wire(MessageContext)
+    messageContext;
+
+    connectedCallback() {
+        this.subscribeToMessageChannel();
+    }
+
+    subscribeToMessageChannel() {
+        this.subscription = subscribe(
+            this.messageContext,
+            FILTER_UPDATED_CHANNEL,
+            (message) => this.handleMessage(message)
+        );
+    }
+
+    handleMessage(message) {
+
+        if (message.Type != null)
+            this.type = message.Type
+        else if (message.Family != null)
+            this.family = message.Family
+    }
+
+    @api inputText = '';
     get filteredItems() {
-        return this.products.filter(product => product.productName.includes(this.inputText));
+        return this.products.filter(product => product.productName.toLowerCase().includes(this.inputText.toLowerCase()) ||
+            product.Description.toLowerCase().includes(this.inputText.toLowerCase())).filter(product => product.Type.includes(this.type) && product.Family.includes(this.family));
     }
 
 

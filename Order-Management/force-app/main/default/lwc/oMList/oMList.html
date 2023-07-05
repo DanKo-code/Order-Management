@@ -1,7 +1,5 @@
 <template>
     <div class="container">
-
-        <p>{inputtext}</p>
         <template for:each={filteredItems} for:item="product">
             <c-o-M-Item class="productTemplate" key={product.id} product={product}>
 

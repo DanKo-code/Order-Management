@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>FilterUpdate</masterLabel>
+    <isExposed>True</isExposed>
+    <description>Message chanel to pass Filter parametrs</description>
+
+    <lightningMessageFields>
+        <fieldName>Type</fieldName>
+        <description>This is Type parametr</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>Family</fieldName>
+        <description>This is Family parametr</description>
+    </lightningMessageFields>
+</LightningMessageChannel>
