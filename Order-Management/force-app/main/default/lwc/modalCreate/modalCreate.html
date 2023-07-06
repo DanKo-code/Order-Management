@@ -30,15 +30,18 @@
                         onchange={TypeChange}></lightning-input> -->
 
                     <h1><b>Type</b></h1>
-                    <select class="slds-select" id="select-01">
-                        <template for:each={typeValues} for:item="Valuee">
-                            <option key={Valuee} value={Valuee}>{Valuee}</option>
-                        </template>
-                    </select>
+                    <ul onclick={TypeChange}>
+                        <li>new</li>
+                        <li>worn</li>
+                        <li>killed</li>
+                    </ul>
 
                     <h1><b>Family</b></h1>
-                    <lightning-input class="searchInput" type="text" value={Family}
-                        onchange={FamilyChange}></lightning-input>
+                    <ul onclick={FamilyChange}>
+                        <li>Electronics</li>
+                        <li>Cars</li>
+                        <li>Furniture</li>
+                    </ul>
 
                     <h1><b>Price</b></h1>
                     <lightning-input class="searchInput" type="text" value={Price}

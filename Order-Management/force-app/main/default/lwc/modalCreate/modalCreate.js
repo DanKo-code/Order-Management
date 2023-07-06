@@ -12,32 +12,32 @@ import getPicklistValues from '@salesforce/apex/ProductController.getPicklistVal
 export default class ModalCreate extends LightningElement {
 
 
-    //try get options values!!!
-    @track typeValues = []
-    @track familyValues = []
-    @track errors
+    // //try get options values!!!
+    // @track typeValues = []
+    // @track familyValues = []
+    // @track errors
 
-    @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: 'Type__c' })
-    wiredPlayerList({ data, error }) {
-        if (data) {
-            this.typeValues = data;
-        }
-        else if (error) {
-            this.errors = error;
-            alert(error)
-        }
-    }
+    // @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: 'Type__c' })
+    // wiredPlayerList({ data, error }) {
+    //     if (data) {
+    //         this.typeValues = data;
+    //     }
+    //     else if (error) {
+    //         this.errors = error;
+    //         alert(error)
+    //     }
+    // }
 
-    @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: 'Family__c' })
-    wiredPlayerList({ data, error }) {
-        if (data) {
-            this.familyValues = data;
-        }
-        else if (error) {
-            this.errors = error;
-            alert(error)
-        }
-    }
+    // @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: '__c' })
+    // wiredPlayerList({ data, error }) {
+    //     if (data) {
+    //         this.familyValues = data;
+    //     }
+    //     else if (error) {
+    //         this.errors = error;
+    //         alert(error)
+    //     }
+    // }
 
 
     showModal = false;
@@ -99,12 +99,13 @@ export default class ModalCreate extends LightningElement {
 
     Type = '';
     TypeChange(event) {
-        this.Type = event.target.value;
+        debugger
+        this.Type = event.target.textContent;
     }
 
     Family = '';
     FamilyChange(event) {
-        this.Family = event.target.value;
+        this.Family = event.target.textContent;
     }
 
     Price = '';
@@ -120,20 +121,28 @@ export default class ModalCreate extends LightningElement {
     newProduct;
     handleCreate() {
         if (this.ProductName && this.Description && this.Type && this.Family && this.Price) {
+
+
             this.newProduct = {
-                "id": '100',
-                productName: this.ProductName,
-                Description: this.Description,
-                Type: this.Type,
-                Family: this.Family,
-                price: this.Price,
-                img: this.Image
+                Name: this.ProductName,
+                Description__c: this.Description,
+                Type__c: this.Type,
+                Family__c: this.Family,
+                Price__c: this.Price,
+                Image__c: this.Image
             }
 
             const payload = {
                 add: this.newProduct
             }
-            publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
+
+            try {
+                publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
+            } catch (error) {
+                alert(error)
+            }
+
+
 
             this.handleDialogClose()
             this.showToastSuccess()
