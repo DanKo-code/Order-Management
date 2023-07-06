@@ -4,12 +4,12 @@ import CURT_SHOW_CHANNEL from '@salesforce/messageChannel/Curt_Show__c';
 import ADD_TO_CART_CHANNEL from '@salesforce/messageChannel/Add_To_Cart__c';
 
 const columns = [
-    { label: 'Product Name', fieldName: 'productName' },
-    { label: 'Description', fieldName: 'Description' },
-    { label: 'Type', fieldName: 'Type' },
-    { label: 'Family', fieldName: 'Family' },
-    { label: 'Price', fieldName: 'price', type: 'currency' },
-    { label: 'Img', fieldName: 'img', type: 'customImage' },
+    { label: 'Product Name', fieldName: 'Name' },
+    { label: 'Description', fieldName: 'Description__c' },
+    { label: 'Type', fieldName: 'Type__c' },
+    { label: 'Family', fieldName: 'Family__c' },
+    { label: 'Price', fieldName: 'Price__c', type: 'currency' },
+    { label: 'Img', fieldName: 'Image__c', type: 'customImage' },
 ];
 
 export default class ModalCart extends LightningElement {

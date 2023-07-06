@@ -25,9 +25,16 @@
                     <lightning-input class="searchInput" type="text" value={Description}
                         onchange={DescriptionChange}></lightning-input>
 
-                    <h1><b>Type</b></h1>
+                    <!-- <h1><b>Type</b></h1>
                     <lightning-input class="searchInput" type="text" value={Type}
-                        onchange={TypeChange}></lightning-input>
+                        onchange={TypeChange}></lightning-input> -->
+
+                    <h1><b>Type</b></h1>
+                    <select class="slds-select" id="select-01">
+                        <template for:each={typeValues} for:item="Valuee">
+                            <option key={Valuee} value={Valuee}>{Valuee}</option>
+                        </template>
+                    </select>
 
                     <h1><b>Family</b></h1>
                     <lightning-input class="searchInput" type="text" value={Family}

@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
 
 import { subscribe, publish, MessageContext } from 'lightning/messageService';
 import CREATE_SHOW_CHANNEL from '@salesforce/messageChannel/Create_Show__c';
@@ -6,8 +6,40 @@ import SEND_PRODUCT_CHANNEL from '@salesforce/messageChannel/Send_Product__c';
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 
+import getPicklistValues from '@salesforce/apex/ProductController.getPicklistValues'
+
 
 export default class ModalCreate extends LightningElement {
+
+
+    //try get options values!!!
+    @track typeValues = []
+    @track familyValues = []
+    @track errors
+
+    @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: 'Type__c' })
+    wiredPlayerList({ data, error }) {
+        if (data) {
+            this.typeValues = data;
+        }
+        else if (error) {
+            this.errors = error;
+            alert(error)
+        }
+    }
+
+    @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: 'Family__c' })
+    wiredPlayerList({ data, error }) {
+        if (data) {
+            this.familyValues = data;
+        }
+        else if (error) {
+            this.errors = error;
+            alert(error)
+        }
+    }
+
+
     showModal = false;
     @api show() {
         this.showModal = true;
