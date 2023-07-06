@@ -116,9 +116,23 @@ export default class OMList extends LightningElement {
             this.family = message.Family
     }
 
-    handleMessage2(message) {
+    handleMessage2() {
 
-        this.products.push(message.add)
+        //wier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //this.products.push(message.add)
+
+
+        getProductList()
+
+            .then(result => {
+                this.products = result;
+
+            })
+            .catch(error => {
+                this.errors = error;
+            })
+
+
     }
 
     @api inputText = '';

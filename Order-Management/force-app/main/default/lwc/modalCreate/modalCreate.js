@@ -6,7 +6,7 @@ import SEND_PRODUCT_CHANNEL from '@salesforce/messageChannel/Send_Product__c';
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 
-import getPicklistValues from '@salesforce/apex/ProductController.getPicklistValues'
+import createProduct from '@salesforce/apex/ProductController.createProduct'
 
 
 export default class ModalCreate extends LightningElement {
@@ -132,20 +132,35 @@ export default class ModalCreate extends LightningElement {
                 Image__c: this.Image
             }
 
-            const payload = {
-                add: this.newProduct
-            }
+            createProduct({
+                name: this.newProduct.Name,
+                description: this.newProduct.Description__c,
+                type: this.newProduct.Type__c,
+                family: this.newProduct.Family__c,
+                price: this.newProduct.Price__c,
+                image: this.newProduct.Image__c
+            })
+                .then(() => {
+                    try {
 
-            try {
-                publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
-            } catch (error) {
-                alert(error)
-            }
+                        const payload = {
+                            add: this.newProduct
+                        }
+
+                        publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
+                    } catch (error) {
+                        alert(error)
+                    }
 
 
 
-            this.handleDialogClose()
-            this.showToastSuccess()
+                    this.handleDialogClose()
+                    this.showToastSuccess()
+                })
+
+
+
+
         }
 
         else {
