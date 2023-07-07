@@ -98,7 +98,7 @@ export default class ModalCreate extends LightningElement {
             debugger
 
             if (this.Image === '') {
-                getImage()
+                getImage({ prodName: this.ProductName })
                     .then(result => {
                         this.Image = result
                     })

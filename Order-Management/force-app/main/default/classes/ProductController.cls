@@ -18,7 +18,7 @@ public with sharing class ProductController {
     }
 
         @AuraEnabled
-    public static void createProduct(String name, String description, String type, String family, byte price, String image) {
+    public static void createProduct(String name, String description, String type, String family, Decimal price, String image) {
         Product__c newProduct = new Product__c();
         newProduct.Name = name;
         newProduct.Description__c = description;

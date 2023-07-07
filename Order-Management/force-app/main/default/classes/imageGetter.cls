@@ -1,9 +1,9 @@
 public with sharing class imageGetter {
     @AuraEnabled
-    public static String getImage(){
+    public static String getImage(String prodName){
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('http://www.glyffix.com/api/Image?word=cat');
+        request.setEndpoint('http://www.glyffix.com/api/Image?word='+prodName);
         request.setMethod('GET');
         
         HttpResponse response = http.send(request);
