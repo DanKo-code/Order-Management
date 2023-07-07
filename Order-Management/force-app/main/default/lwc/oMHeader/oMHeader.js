@@ -2,33 +2,35 @@ import { LightningElement, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi'
 import ACCOUNT_NAME_FIELD from '@salesforce/schema/Account.Name';
 import ACCOUNT_NUMBER_FIELD from '@salesforce/schema/Account.AccountNumber';
+
 import USER_ID from '@salesforce/user/Id';
+import NAME_FIELD from '@salesforce/schema/User.Name';
+const fields = [NAME_FIELD];
+
 
 import { publish, MessageContext } from 'lightning/messageService';
 import CURT_SHOW_CHANNEL from '@salesforce/messageChannel/Curt_Show__c';
 import CREATE_SHOW_CHANNEL from '@salesforce/messageChannel/Create_Show__c';
 
-const FIELDS = [ACCOUNT_NAME_FIELD, ACCOUNT_NUMBER_FIELD];
+import getLoggedInAccount from '@salesforce/apex/AccountController.getLoggedInAccount';
+
+
+import { CurrentPageReference } from 'lightning/navigation';
+
+
 
 export default class OMHeader extends LightningElement {
+
+
     accountName;
     accountNumber;
 
-    @wire(getRecord, { recordId: USER_ID, fields: FIELDS })
-    wiredAccount({ error, data }) {
-        if (data) {
-            this.accountName = getFieldValue(data, ACCOUNT_NAME_FIELD);
-            this.accountNumber = getFieldValue(data, ACCOUNT_NUMBER_FIELD);
-        } else if (error) {
-            console.error(error);
-            this.accountName = "error"
-            this.accountNumber = "error"
-
-            this.accountNumber = USER_ID
-        }
+    @wire(CurrentPageReference)
+    handlePageReference(currentPageReference) {
+        const urlParams = new URLSearchParams(currentPageReference.state.extraState);
+        this.accountName = urlParams.get('accountName');
+        this.accountNumber = urlParams.get('accountNumber');
     }
-
-    //redux
 
     @wire(MessageContext)
     messageContext;

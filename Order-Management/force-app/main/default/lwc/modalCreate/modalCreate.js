@@ -2,43 +2,16 @@ import { LightningElement, api, wire, track } from 'lwc';
 
 import { subscribe, publish, MessageContext } from 'lightning/messageService';
 import CREATE_SHOW_CHANNEL from '@salesforce/messageChannel/Create_Show__c';
-import SEND_PRODUCT_CHANNEL from '@salesforce/messageChannel/Send_Product__c';
+import SEND_PRODUCT_CHANNEL from '@salesforce/messageChannel/Send_product__c';
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 
 import createProduct from '@salesforce/apex/ProductController.createProduct'
 
+import getImage from '@salesforce/apex/imageGetter.getImage'
+
 
 export default class ModalCreate extends LightningElement {
-
-
-    // //try get options values!!!
-    // @track typeValues = []
-    // @track familyValues = []
-    // @track errors
-
-    // @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: 'Type__c' })
-    // wiredPlayerList({ data, error }) {
-    //     if (data) {
-    //         this.typeValues = data;
-    //     }
-    //     else if (error) {
-    //         this.errors = error;
-    //         alert(error)
-    //     }
-    // }
-
-    // @wire(getPicklistValues, { objectApiName: 'Product__c', fieldName: '__c' })
-    // wiredPlayerList({ data, error }) {
-    //     if (data) {
-    //         this.familyValues = data;
-    //     }
-    //     else if (error) {
-    //         this.errors = error;
-    //         alert(error)
-    //     }
-    // }
-
 
     showModal = false;
     @api show() {
@@ -122,45 +95,76 @@ export default class ModalCreate extends LightningElement {
     handleCreate() {
         if (this.ProductName && this.Description && this.Type && this.Family && this.Price) {
 
+            debugger
 
-            this.newProduct = {
-                Name: this.ProductName,
-                Description__c: this.Description,
-                Type__c: this.Type,
-                Family__c: this.Family,
-                Price__c: this.Price,
-                Image__c: this.Image
+            if (this.Image === '') {
+                getImage()
+                    .then(result => {
+                        this.Image = result
+                    })
+                    .then(() => {
+
+
+
+                        createProduct({
+                            name: this.ProductName,
+                            description: this.Description,
+                            type: this.Type,
+                            family: this.Family,
+                            price: this.Price,
+                            image: this.Image
+                        }).then(() => {
+                            try {
+
+                                const payload = {
+                                    add: this.newProduct
+                                }
+
+                                publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
+
+                            } catch (error) {
+                                alert(error)
+                            }
+
+
+                            debugger
+                            this.handleDialogClose()
+                            this.showToastSuccess()
+                        })
+                            .catch(error => {
+                                this.errors = error;
+                                alert(JSON.stringify(error))
+                            })
+                    })
+
             }
+            else {
+                createProduct({
+                    name: this.ProductName,
+                    description: this.Description,
+                    type: this.Type,
+                    family: this.Family,
+                    price: this.Price,
+                    image: this.Image
+                })
+                    .then(() => {
+                        try {
 
-            createProduct({
-                name: this.newProduct.Name,
-                description: this.newProduct.Description__c,
-                type: this.newProduct.Type__c,
-                family: this.newProduct.Family__c,
-                price: this.newProduct.Price__c,
-                image: this.newProduct.Image__c
-            })
-                .then(() => {
-                    try {
+                            const payload = {
+                                add: this.newProduct
+                            }
 
-                        const payload = {
-                            add: this.newProduct
+                            publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
+                        } catch (error) {
+                            alert(error)
                         }
 
-                        publish(this.messageContext, SEND_PRODUCT_CHANNEL, payload)
-                    } catch (error) {
-                        alert(error)
-                    }
 
 
-
-                    this.handleDialogClose()
-                    this.showToastSuccess()
-                })
-
-
-
-
+                        this.handleDialogClose()
+                        this.showToastSuccess()
+                    })
+            }
         }
 
         else {
