@@ -104,15 +104,22 @@ export default class ModalCreate extends LightningElement {
                     })
                     .then(() => {
 
-
+                        this.newProduct = {
+                            Name: this.ProductName,
+                            Description__c: this.Description,
+                            Type__c: this.Type,
+                            Family__c: this.Family,
+                            Price__c: this.Price,
+                            Image__c: this.Image
+                        }
 
                         createProduct({
-                            name: this.ProductName,
-                            description: this.Description,
-                            type: this.Type,
-                            family: this.Family,
-                            price: this.Price,
-                            image: this.Image
+                            name: this.newProduct.Name,
+                            description: this.newProduct.Description__c,
+                            type: this.newProduct.Type__c,
+                            family: this.newProduct.Family__c,
+                            price: this.newProduct.Price__c,
+                            image: this.newProduct.Image__c
                         }).then(() => {
                             try {
 
@@ -139,13 +146,22 @@ export default class ModalCreate extends LightningElement {
 
             }
             else {
+                this.newProduct = {
+                    Name: this.ProductName,
+                    Description__c: this.Description,
+                    Type__c: this.Type,
+                    Family__c: this.Family,
+                    Price__c: this.Price,
+                    Image__c: this.Image
+                }
+
                 createProduct({
-                    name: this.ProductName,
-                    description: this.Description,
-                    type: this.Type,
-                    family: this.Family,
-                    price: this.Price,
-                    image: this.Image
+                    name: this.newProduct.Name,
+                    description: this.newProduct.Description__c,
+                    type: this.newProduct.Type__c,
+                    family: this.newProduct.Family__c,
+                    price: this.newProduct.Price__c,
+                    image: this.newProduct.Image__c
                 })
                     .then(() => {
                         try {
