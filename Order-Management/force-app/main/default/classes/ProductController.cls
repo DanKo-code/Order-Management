@@ -7,14 +7,29 @@ public with sharing class ProductController {
         ];
     }
 
+    // @AuraEnabled(cacheable=true)
+    // public static Order__c getLastAddOrder() {
+    //     return [
+    //         SELECT Id, UserId__c, TotalPrice__c
+    //          from Order__c
+    //          order by CreatedDate DESC
+    //          LIMIT 1
+    //     ];
+    // }
+
     @AuraEnabled(cacheable=true)
     public static Order__c getLastAddOrder() {
-        return [
-            SELECT Id, Name, UserId__c, TotalPrice__c
+        
+        Order__c temp = [
+            SELECT Id
              from Order__c
              order by CreatedDate DESC
              LIMIT 1
         ];
+        
+        System.debug(temp);
+        
+        return temp;
     }
 
         @AuraEnabled
@@ -35,12 +50,11 @@ public with sharing class ProductController {
         }
     }
 
-    static Order__c newOrder;
     @AuraEnabled
-    public static void createOrder(String name, String userId) {
-        newOrder = new Order__c();
-        newOrder.Name = name;
-        newOrder.UserId__c = userId;
+    public static Order__c createOrder(String name, Id accountId) 
+    {
+        Order__c newOrder = new Order__c();
+        newOrder.AccountId__c = accountId;
         newOrder.TotalProductCount__c = 0;
         newOrder.TotalPrice__c = 0;
         
@@ -49,6 +63,7 @@ public with sharing class ProductController {
         try {
             
             insert newOrder;
+            return getLastAddOrder();
         } catch (Exception e) {
             throw new AuraHandledException('Error creating product: ' + e.getMessage());
         }
@@ -57,12 +72,12 @@ public with sharing class ProductController {
     }
 
     @AuraEnabled
-public static void createOrderItem(String name, Order__c lastOrder, Product__c product) {
+public static void createOrderItem(Id orderId ,Id productId) {
     
     OrderItem__c newOrderItem = new OrderItem__c();
-    newOrderItem.Name = name;
-    newOrderItem.Order__c = lastOrder.Id;
-    newOrderItem.Product__c = product.Id;
+    newOrderItem.Product__c = productId;
+    newOrderItem.OrderId__c = orderId;
+    
     //newOrderItem.Quantity__c = Quantity;
     //newOrderItem.Price__c = Price;
     

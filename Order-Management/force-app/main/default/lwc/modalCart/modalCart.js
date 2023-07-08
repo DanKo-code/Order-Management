@@ -10,6 +10,8 @@ import createOrder from '@salesforce/apex/ProductController.createOrder'
 import createOrderItem from '@salesforce/apex/ProductController.createOrderItem'
 import getLastAddOrder from '@salesforce/apex/ProductController.getLastAddOrder'
 
+import { CurrentPageReference } from 'lightning/navigation';
+
 const columns = [
     { label: 'Product Name', fieldName: 'Name' },
     { label: 'Description', fieldName: 'Description__c' },
@@ -77,46 +79,59 @@ export default class ModalCart extends LightningElement {
     }
 
 
+    //Work with accountInf
+    @wire(CurrentPageReference)
+    setCurrentPageReference(currentPageReference) {
+        this.currentPageReference = currentPageReference;
+    }
+
+
+
     //dataTable
     columns = columns;
     @api products = []
 
     lastOrder;
 
-    handleCheckout() {
-        createOrder({
+    // async handleCheckout() {
+    //     alert(this.currentPageReference?.state?.c__accountId)
+    //     newOrderId = await createOrder({
+    //         name: "Order))",
+    //         accountId: this.currentPageReference?.state?.c__accountId
+    //     });
+
+    //     this.products.forEach(element => {
+
+    //         //alert(JSON.stringify(element))
+
+    //         //delete element.amount
+
+    //         debugger
+    //         alert("this is newOrderId" + newOrderId)
+    //         try {
+    //             await createOrderItem(newOrderId, element.Id)
+    //         } catch (error) {
+    //             alert(error)
+    //         }
+
+    //     });
+    // }
+
+    async handleCheckout() {
+        const accountId = this.currentPageReference?.state?.c__accountId;
+        //alert(accountId);
+
+        const newOrderId = await createOrder({
             name: "Order))",
-            userId: USER_ID
-        })
-            .then(result => {
-                // Обрабатываем успешное создание заказа
-                alert(result);
-                return getLastAddOrder(); // Возвращаем промис для следующего вызова
-            })
-            .then(result => {
-                // Получаем последний добавленный заказ
-                this.lastOrder = result;
-                debugger;
-                alert(JSON.stringify(this.lastOrder));
-                return Promise.all(this.products.map(element => {
-                    delete element.amount;
-                    alert(JSON.stringify(element));
-                    return createOrderItem({
-                        name: "OrderItem))",
-                        lastOrder: this.lastOrder,
-                        product: element
-                    });
-                }));
-            })
-            .then(results => {
-                // Обрабатываем успешное создание всех Order Item
-                results.forEach(result => {
-                    alert('OrderItem created:', result);
-                });
-            })
-            .catch(error => {
-                // Обрабатываем ошибку при выполнении любого из вызовов
-                console.error('Error:', error);
-            });
+            accountId: accountId
+        });
+
+        for (const element of this.products) {
+            try {
+                await createOrderItem({ orderId: newOrderId.Id, productId: element.Id });
+            } catch (error) {
+                alert(JSON.stringify(error));
+            }
+        }
     }
 }
