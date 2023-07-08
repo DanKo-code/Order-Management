@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi'
 import ACCOUNT_NAME_FIELD from '@salesforce/schema/Account.Name';
 import ACCOUNT_NUMBER_FIELD from '@salesforce/schema/Account.AccountNumber';
@@ -17,7 +17,8 @@ import getLoggedInAccount from '@salesforce/apex/AccountController.getLoggedInAc
 import Id from '@salesforce/user/Id';
 import IS_MANAGER_FIELD from '@salesforce/schema/User.IsManager__c';
 const fields = [IS_MANAGER_FIELD];
-//import { CurrentPageReference } from 'lightning/navigation';
+
+import { CurrentPageReference } from 'lightning/navigation';
 
 
 
@@ -50,5 +51,19 @@ export default class OMHeader extends LightningElement {
     user;
     get isManagerr() {
         return getFieldValue(this.user.data, IS_MANAGER_FIELD);
+    }
+
+    //Work with accountInf
+    @wire(CurrentPageReference)
+    setCurrentPageReference(currentPageReference) {
+        this.currentPageReference = currentPageReference;
+    }
+
+    get accountName() {
+        return this.currentPageReference?.state?.c__accountName;
+    }
+
+    get accountNumber() {
+        return this.currentPageReference?.state?.c__accountNumber;
     }
 }
