@@ -4,8 +4,8 @@ import ACCOUNT_NAME_FIELD from '@salesforce/schema/Account.Name';
 import ACCOUNT_NUMBER_FIELD from '@salesforce/schema/Account.AccountNumber';
 
 import USER_ID from '@salesforce/user/Id';
-import NAME_FIELD from '@salesforce/schema/User.Name';
-const fields = [NAME_FIELD];
+// import NAME_FIELD from '@salesforce/schema/User.Name';
+// const fields = [NAME_FIELD];
 
 
 import { publish, MessageContext } from 'lightning/messageService';
@@ -14,29 +14,17 @@ import CREATE_SHOW_CHANNEL from '@salesforce/messageChannel/Create_Show__c';
 
 import getLoggedInAccount from '@salesforce/apex/AccountController.getLoggedInAccount';
 
+import Id from '@salesforce/user/Id';
+import IS_MANAGER_FIELD from '@salesforce/schema/User.IsManager__c';
+const fields = [IS_MANAGER_FIELD];
+//import { CurrentPageReference } from 'lightning/navigation';
 
-import { CurrentPageReference } from 'lightning/navigation';
 
 
 
 export default class OMHeader extends LightningElement {
-
-
-    accountName;
-    accountNumber;
-
-    @wire(CurrentPageReference)
-    handlePageReference(currentPageReference) {
-        const urlParams = new URLSearchParams(currentPageReference.state.extraState);
-        this.accountName = urlParams.get('accountName');
-        this.accountNumber = urlParams.get('accountNumber');
-    }
-
     @wire(MessageContext)
     messageContext;
-
-    // @wire(MessageContext)
-    // messageContext2;
 
     handleCart() {
         const payload = {
@@ -53,5 +41,14 @@ export default class OMHeader extends LightningElement {
         }
 
         publish(this.messageContext, CREATE_SHOW_CHANNEL, payload)
+    }
+
+    //Work with IS_ADMIN
+    isManager = false;
+    userId = Id;
+    @wire(getRecord, { recordId: '$userId', fields })
+    user;
+    get isManagerr() {
+        return getFieldValue(this.user.data, IS_MANAGER_FIELD);
     }
 }
