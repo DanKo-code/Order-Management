@@ -13,6 +13,26 @@ import getImage from '@salesforce/apex/imageGetter.getImage'
 
 export default class ModalCreate extends LightningElement {
 
+    //checkBox logic
+    valueType = '';
+    valueFamily = '';
+
+    get optionsType() {
+        return [
+            { label: 'new', value: 'new' },
+            { label: 'worn', value: 'worn' },
+            { label: 'killed', value: 'killed' },
+        ]
+    }
+
+    get optionsFamily() {
+        return [
+            { label: 'Electronics', value: 'Electronics' },
+            { label: 'Cars', value: 'Cars' },
+            { label: 'Furniture', value: 'Furniture' },
+        ]
+    }
+
     showModal = false;
     @api show() {
         this.showModal = true;
@@ -70,15 +90,13 @@ export default class ModalCreate extends LightningElement {
         this.Description = event.target.value;
     }
 
-    Type = '';
     TypeChange(event) {
         debugger
-        this.Type = event.target.textContent;
+        this.valueType = event.detail.value;
     }
 
-    Family = '';
     FamilyChange(event) {
-        this.Family = event.target.textContent;
+        this.valueFamily = event.detail.value;
     }
 
     Price = '';
@@ -93,7 +111,7 @@ export default class ModalCreate extends LightningElement {
 
     newProduct;
     handleCreate() {
-        if (this.ProductName && this.Description && this.Type && this.Family && this.Price) {
+        if (this.ProductName && this.Description && this.valueType && this.valueFamily && this.Price) {
 
             debugger
             //Проверка на цену
@@ -113,8 +131,8 @@ export default class ModalCreate extends LightningElement {
                         this.newProduct = {
                             Name: this.ProductName,
                             Description__c: this.Description,
-                            Type__c: this.Type,
-                            Family__c: this.Family,
+                            Type__c: this.valueType,
+                            Family__c: this.valueFamily,
                             Price__c: this.Price,
                             Image__c: this.Image
                         }
@@ -155,8 +173,8 @@ export default class ModalCreate extends LightningElement {
                 this.newProduct = {
                     Name: this.ProductName,
                     Description__c: this.Description,
-                    Type__c: this.Type,
-                    Family__c: this.Family,
+                    Type__c: this.valueType,
+                    Family__c: this.valueFamily,
                     Price__c: this.Price,
                     Image__c: this.Image
                 }

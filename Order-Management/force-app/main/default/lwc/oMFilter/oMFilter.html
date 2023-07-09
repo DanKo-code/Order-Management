@@ -3,19 +3,13 @@
         <h1>Filter</h1>
 
         <!-- TODO добавить методы, который будут извлекать типы и семейства, которые присутствуют в бд!!!))) -->
-        <h2>Type:</h2>
-        <ul onclick={handleType}>
-            <li>new</li>
-            <li>worn</li>
-            <li>killed</li>
-        </ul>
+        <lightning-combobox label="Type" value={value} placeholder="Select Type" options={optionsType}
+            onchange={handleType}>
 
-        <h2>Family:</h2>
-        <ul onclick={handleFamily}>
-            <li>Electronics</li>
-            <li>Cars</li>
-            <li>Furniture</li>
-        </ul>
+        </lightning-combobox>
+
+        <lightning-combobox label="Family" value={value} placeholder="Select Family" options={optionsFamily}
+            onchange={handleFamily}></lightning-combobox>
     </div>
 
 

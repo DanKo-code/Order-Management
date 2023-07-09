@@ -29,19 +29,27 @@
                     <lightning-input class="searchInput" type="text" value={Type}
                         onchange={TypeChange}></lightning-input> -->
 
-                    <h1><b>Type</b></h1>
+                    <!-- <h1><b>Type</b></h1>
                     <ul onclick={TypeChange}>
                         <li>new</li>
                         <li>worn</li>
                         <li>killed</li>
-                    </ul>
+                    </ul> -->
 
-                    <h1><b>Family</b></h1>
+                    <lightning-combobox label="Type" value={value} placeholder="Select Type" options={optionsType}
+                        onchange={TypeChange}>
+
+                    </lightning-combobox>
+
+                    <!-- <h1><b>Family</b></h1>
                     <ul onclick={FamilyChange}>
                         <li>Electronics</li>
                         <li>Cars</li>
                         <li>Furniture</li>
-                    </ul>
+                    </ul> -->
+
+                    <lightning-combobox label="Family" value={value} placeholder="Select Family" options={optionsFamily}
+                        onchange={FamilyChange}></lightning-combobox>
 
                     <h1><b>Price</b></h1>
                     <lightning-input class="searchInput" type="text" value={Price}

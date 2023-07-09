@@ -62,7 +62,6 @@ export default class OMList extends LightningElement {
     }
 
     async handleMessage2(message) {
-        alert(JSON.stringify(message.add))
         this.products = [...this.products, message.add];
     }
 
