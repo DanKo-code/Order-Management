@@ -96,6 +96,12 @@ export default class ModalCreate extends LightningElement {
         if (this.ProductName && this.Description && this.Type && this.Family && this.Price) {
 
             debugger
+            //Проверка на цену
+            if (isNaN(this.Price)) {
+                this.showToastErrorPrice();
+                return;
+            }
+
 
             if (this.Image === '') {
                 getImage({ prodName: this.ProductName })
@@ -189,6 +195,15 @@ export default class ModalCreate extends LightningElement {
     }
 
     //TOAST_EVENT
+    showToastErrorPrice() {
+        const event = new ShowToastEvent({
+            title: 'Alert!',
+            message: 'Input number price!',
+            variant: 'error'
+        });
+        this.dispatchEvent(event);
+    }
+
     showToastError() {
         const event = new ShowToastEvent({
             title: 'Alert!',

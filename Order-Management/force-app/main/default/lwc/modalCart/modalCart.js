@@ -94,30 +94,6 @@ export default class ModalCart extends NavigationMixin(LightningElement) {
 
     lastOrder;
 
-    // async handleCheckout() {
-    //     alert(this.currentPageReference?.state?.c__accountId)
-    //     newOrderId = await createOrder({
-    //         name: "Order))",
-    //         accountId: this.currentPageReference?.state?.c__accountId
-    //     });
-
-    //     this.products.forEach(element => {
-
-    //         //alert(JSON.stringify(element))
-
-    //         //delete element.amount
-
-    //         debugger
-    //         alert("this is newOrderId" + newOrderId)
-    //         try {
-    //             await createOrderItem(newOrderId, element.Id)
-    //         } catch (error) {
-    //             alert(error)
-    //         }
-
-    //     });
-    // }
-
     async handleCheckout() {
         const accountId = this.currentPageReference?.state?.c__accountId;
         //alert(accountId);

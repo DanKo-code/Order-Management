@@ -23,7 +23,7 @@ public with sharing class imageGetter {
             }
         }
 
-        return 'LOX';
+        return 'Image not found';
 
         /////////////////////////////////////////////////////////////////////
     }
