@@ -72,6 +72,7 @@ export default class ModalCart extends LightningElement {
 
         if (foundElement) {
             foundElement.amount += 1
+            foundElement.Price__c += message.add.Price__c
         }
         else {
             this.products.push({ ...message.add, amount: 1 })
@@ -122,13 +123,13 @@ export default class ModalCart extends LightningElement {
         //alert(accountId);
 
         const newOrderId = await createOrder({
-            name: "Order))",
             accountId: accountId
         });
 
         for (const element of this.products) {
             try {
-                await createOrderItem({ orderId: newOrderId.Id, productId: element.Id });
+                //delete element.amount
+                await createOrderItem({ orderId: newOrderId.Id, productId: element.Id, quantity: element.amount, price: element.Price__c });
             } catch (error) {
                 alert(JSON.stringify(error));
             }

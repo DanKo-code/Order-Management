@@ -51,7 +51,7 @@ public with sharing class ProductController {
     }
 
     @AuraEnabled
-    public static Order__c createOrder(String name, Id accountId) 
+    public static Order__c createOrder(Id accountId) 
     {
         Order__c newOrder = new Order__c();
         newOrder.AccountId__c = accountId;
@@ -72,14 +72,14 @@ public with sharing class ProductController {
     }
 
     @AuraEnabled
-public static void createOrderItem(Id orderId ,Id productId) {
+public static void createOrderItem(Id orderId ,Id productId, Decimal quantity, Decimal price ) {
     
     OrderItem__c newOrderItem = new OrderItem__c();
     newOrderItem.Product__c = productId;
     newOrderItem.OrderId__c = orderId;
     
-    //newOrderItem.Quantity__c = Quantity;
-    //newOrderItem.Price__c = Price;
+    newOrderItem.Quantity__c = quantity;
+    newOrderItem.Price__c = price;
     
     try {
         insert newOrderItem;

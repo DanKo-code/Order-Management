@@ -1,8 +1,13 @@
 trigger OrderItemTrigger on OrderItem__c (after insert) {
-    Set<Id> orderIds = new Set<Id>();
+    
+    for(OrderItem__c oi : Trigger.new) {
 
-    // // Collect the Order Ids associated with the OrderItems
-    // for (OrderItem__c orderItem : Trigger.new) {
-    //             orderIds.add(orderItem.OrderId);
-    //         }
+        Order__c order = [SELECT TotalProductCount__c, TotalPrice__c FROM Order__c WHERE Id = :oi.OrderId__c];
+        order.TotalProductCount__c += oi.Quantity__c;
+        order.TotalPrice__c += oi.Price__c;
+
+        update order;
+    } 
+
+    
 }
