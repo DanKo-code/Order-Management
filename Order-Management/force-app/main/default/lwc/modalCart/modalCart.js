@@ -10,7 +10,7 @@ import createOrder from '@salesforce/apex/ProductController.createOrder'
 import createOrderItem from '@salesforce/apex/ProductController.createOrderItem'
 import getLastAddOrder from '@salesforce/apex/ProductController.getLastAddOrder'
 
-import { CurrentPageReference } from 'lightning/navigation';
+import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
 
 const columns = [
     { label: 'Product Name', fieldName: 'Name' },
@@ -22,7 +22,7 @@ const columns = [
     { label: 'Amount', fieldName: 'amount' },
 ];
 
-export default class ModalCart extends LightningElement {
+export default class ModalCart extends NavigationMixin(LightningElement) {
     showModal = false;
     @api show() {
         this.showModal = true;
@@ -134,5 +134,17 @@ export default class ModalCart extends LightningElement {
                 alert(JSON.stringify(error));
             }
         }
+
+        //Navigate
+        await this[NavigationMixin.Navigate]({
+            type: 'standard__objectPage',
+            attributes: {
+                objectApiName: 'Order__c',
+                actionName: 'list',
+            },
+            state: {
+                filterName: '00B2t000000O79lEAC'
+            }
+        })
     }
 }
