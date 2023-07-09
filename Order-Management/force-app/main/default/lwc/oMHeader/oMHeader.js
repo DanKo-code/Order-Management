@@ -12,7 +12,6 @@ import { publish, MessageContext } from 'lightning/messageService';
 import CURT_SHOW_CHANNEL from '@salesforce/messageChannel/Curt_Show__c';
 import CREATE_SHOW_CHANNEL from '@salesforce/messageChannel/Create_Show__c';
 
-import getLoggedInAccount from '@salesforce/apex/AccountController.getLoggedInAccount';
 
 import Id from '@salesforce/user/Id';
 import IS_MANAGER_FIELD from '@salesforce/schema/User.IsManager__c';

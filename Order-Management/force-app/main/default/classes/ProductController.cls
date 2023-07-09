@@ -7,16 +7,6 @@ public with sharing class ProductController {
         ];
     }
 
-    // @AuraEnabled(cacheable=true)
-    // public static Order__c getLastAddOrder() {
-    //     return [
-    //         SELECT Id, UserId__c, TotalPrice__c
-    //          from Order__c
-    //          order by CreatedDate DESC
-    //          LIMIT 1
-    //     ];
-    // }
-
     @AuraEnabled(cacheable=true)
     public static Order__c getLastAddOrder() {
         
