@@ -1,0 +1,22 @@
+.header-wrapper {
+    display: flex;
+    justify-content:space-between;
+    padding: 50px;
+    border: 1px solid black;
+}
+
+.header-leftSide {
+    display: flex;
+    gap: 100px;
+}
+
+.header-rigtSide {
+    display: flex;
+    gap: 100px;
+}
+
+/* .header-rigtSide > lightning-button {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+} */

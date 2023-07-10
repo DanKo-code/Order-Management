@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>AddToCart</masterLabel>
+    <isExposed>True</isExposed>
+    <description>Message chanel to add product to curt</description>
+
+    <lightningMessageFields>
+        <fieldName>add</fieldName>
+        <description>This is add command</description>
+    </lightningMessageFields>
+</LightningMessageChannel>

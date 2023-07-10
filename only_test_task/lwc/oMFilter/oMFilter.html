@@ -1,0 +1,16 @@
+<template>
+    <div class="filter-wrapper">
+        <h1>Filter</h1>
+
+        <!-- TODO добавить методы, который будут извлекать типы и семейства, которые присутствуют в бд!!!))) -->
+        <lightning-combobox label="Type" value={value} placeholder="Select Type" options={optionsType}
+            onchange={handleType}>
+
+        </lightning-combobox>
+
+        <lightning-combobox label="Family" value={value} placeholder="Select Family" options={optionsFamily}
+            onchange={handleFamily}></lightning-combobox>
+    </div>
+
+
+</template>

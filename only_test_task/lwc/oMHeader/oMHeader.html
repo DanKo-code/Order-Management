@@ -1,0 +1,18 @@
+<template>
+       <div class="header-wrapper">
+              <div class="header-leftSide">
+                     <div>Account Name: {accountName}</div>
+                     <div>Account Number: {accountNumber}</div>
+              </div>
+              <div class="header-rigtSide">
+                     <template if:true={isManagerr}>
+                            <lightning-button variant="brand" label="Create Product" title="Primary action"
+                                   onclick={handleCreate} class="slds-m-left_x-small"></lightning-button>
+                     </template>
+
+                     <lightning-button variant="brand" label="Cart" title="Primary action" onclick={handleCart}
+                            class="slds-m-left_x-small"></lightning-button>
+              </div>
+       </div>
+
+</template>

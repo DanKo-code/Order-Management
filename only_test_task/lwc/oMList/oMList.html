@@ -1,0 +1,11 @@
+<template>
+    <div class="container">
+        <template for:each={filteredItems} for:item="product">
+            <c-o-M-Item ondetailsclick={handleDetailsClick} class="productTemplate" key={product.Id} product={product}>
+            </c-o-M-Item>
+        </template>
+
+        <!-- MODAL FOR DETAILS -->
+        <c-modal-Details aura:id="modalDetails"></c-modal-Details>
+    </div>
+</template>
