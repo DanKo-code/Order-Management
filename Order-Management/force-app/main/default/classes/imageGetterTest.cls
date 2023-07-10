@@ -32,7 +32,7 @@ public class imageGetterTest {
         String imageUrl = imageGetter.getImage(prodName);
         Test.stopTest();
         
-        System.assertEquals('LOX', imageUrl, 'Метод должен вернуть "LOX"');
+        System.assertEquals('Image not found', imageUrl, 'Метод должен вернуть "Image not found"');
     }
     
     @isTest
@@ -49,7 +49,7 @@ public class imageGetterTest {
         String imageUrl = imageGetter.getImage(prodName);
         Test.stopTest();
         
-        System.assertEquals('LOX', imageUrl, 'Метод должен вернуть "LOX"');
+        System.assertEquals('Image not found', imageUrl, 'Метод должен вернуть "Image not found"');
     }
     
     // Вспомогательный класс для генерации фейкового HTTP-ответа
