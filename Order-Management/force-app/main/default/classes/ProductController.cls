@@ -77,5 +77,39 @@ public static void createOrderItem(Id orderId ,Id productId, Decimal quantity, D
         throw new AuraHandledException('Error creating product: ' + e.getMessage());
     }
 }
+
+    @AuraEnabled
+    public static List<String> getPicklistValues(String fieldName) {
+        // Replace 'Product__c.Type__c' with the API name of your custom field
+        // (e.g., 'Custom_Object__c.Custom_Field__c')
+        System.debug('start!!!');
+        //String fieldName = 'Type__c';
+
+        // Get the SObjectField instance for the custom field
+        Schema.SObjectField field = Schema.getGlobalDescribe().get('Product__c').getDescribe().fields.getMap().get(fieldName);
+        System.debug(Schema.getGlobalDescribe().get('Product__c').getDescribe().fields.getMap());
+
+        // Ensure it's a picklist field
+        if (field != null) {
+            System.debug('get into if!');
+            // Get the picklist values
+            List<Schema.PicklistEntry> picklistValues = field.getDescribe().getPicklistValues();
+
+            // Prepare a list to store the picklist item labels
+            List<String> picklistLabels = new List<String>();
+
+            // Iterate through the picklist values and add the labels to the list
+            for (Schema.PicklistEntry picklistEntry : picklistValues) {
+                picklistLabels.add(picklistEntry.getLabel());
+            }
+
+            System.debug(picklistLabels);
+
+            return picklistLabels;
+        }
+
+        // Return null if the field is not a picklist
+        return null;
+    }
     
 }
